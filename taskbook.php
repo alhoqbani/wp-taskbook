@@ -45,3 +45,25 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/status.php';
 
 // require only the fields related to the Task post type
 require_once plugin_dir_path( __FILE__ ) . 'includes/CMB2-task-functions.php';
+
+/**
+ * Grant task access for index pages for certain users.
+ */
+add_action( 'pre_get_posts', 'taskbook_grant_access' );
+/**
+ * @param WP_Query $query
+ */
+function taskbook_grant_access( $query ) {
+	if ( isset( $query->query_vars['post_type'] ) ) {
+		if ( $query->query_vars['post_type'] == 'task' ) {
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+				if ( current_user_can( 'editor' ) || current_user_can( 'administrator' ) ) {
+					$query->set( 'post_status', 'private' );
+				} elseif ( current_user_can( 'task_logger' ) ) {
+					$query->set( 'post_status', 'private' );
+					$query->set( 'author', get_current_user_id() );
+				}
+			}
+		}
+	}
+}
