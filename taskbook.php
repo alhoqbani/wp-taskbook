@@ -35,4 +35,8 @@ register_deactivation_hook( __FILE__, 'taskbook_remove_capabilities' );
 /**
  * Add CBM2 Plugin To Create Custom Meta Data Boxes
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/CMB2-example-functions.php';
+// require the full CMB2 example file which only applies to page post type.
+//require_once plugin_dir_path( __FILE__ ) . 'includes/CMB2-example-functions.php';
+
+// require only the fields related to the Task post type
+require_once plugin_dir_path( __FILE__ ) . 'includes/CMB2-task-functions.php';
