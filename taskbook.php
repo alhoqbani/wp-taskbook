@@ -33,6 +33,11 @@ register_deactivation_hook( __FILE__, 'taskbook_remove_role' );
 register_deactivation_hook( __FILE__, 'taskbook_remove_capabilities' );
 
 /**
+ * Auto-update the Status field on Save Post
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/status.php';
+
+/**
  * Add CBM2 Plugin To Create Custom Meta Data Boxes
  */
 // require the full CMB2 example file which only applies to page post type.
